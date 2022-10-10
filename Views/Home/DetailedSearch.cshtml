@@ -1,0 +1,62 @@
+﻿@model Vu_Victoria_HW3.Models.SearchViewModel
+
+@{
+    ViewData["Title"] = "DetailedSearch";
+}
+
+<h1>DetailedSearch</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DisplaySearchResults" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SearchTitle" class="control-label"></label>
+                <input asp-for="SearchTitle" class="form-control" />
+                <span asp-validation-for="SearchTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SearchDescription" class="control-label"></label>
+                <input asp-for="SearchDescription" class="form-control" />
+                <span asp-validation-for="SearchDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedRating" class="control-label"></label>
+                <select asp-for="SelectedRating" asp-items="Html.GetEnumSelectList<Rating>()" class="form-control">
+                    <option selected="selected" value="">All Ratings</option>
+                </select>
+                <span asp-validation-for="SelectedRating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GenreID" class="control-label"></label>
+                @Html.DropDownListFor(model => model.GenreID, (SelectList)ViewBag.AllGenres, new { @class = "form-control"})
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedVoteAverage" class="control-label"></label>
+                <input asp-for="SelectedVoteAverage" type="number" step="0.1" min="0" max="10" class="form-control" />
+                <span asp-validation-for="SelectedVoteAverage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedVote" class="control-label"></label>
+                <label class="radio">@Html.RadioButtonFor(model => model.SelectedVote, VoteSearch.GreaterThan) Greater Than</label>
+                <label class="radio">@Html.RadioButtonFor(model => model.SelectedVote, VoteSearch.LessThan) Less Than</label>
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedDate" class="control-label"></label>
+                <input asp-for="SelectedDate" class="form-control" />
+                <span asp-validation-for="SelectedDate" class="text-danger"></span>
+            </div>
+            <p />
+
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
